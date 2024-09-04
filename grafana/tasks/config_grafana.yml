@@ -1,0 +1,27 @@
+---
+- name: Ensure the default Grafana port is 8080
+  ansible.builtin.lineinfile:
+    path: /etc/grafana/grafana.ini
+    regexp: '^;http_port'
+    insertafter: '^;http_port = '
+    line: ;http_port = 8080
+  notify:
+    - Restart_grafana
+
+- name: Ensure the default Grafana port is 8080
+  ansible.builtin.lineinfile:
+    path: /usr/share/grafana/conf/defaults.ini
+    regexp: '^http_port'
+    insertafter: '^http_port = '
+    line: http_port = 8080
+  notify:
+    - Restart_grafana
+    
+- name: change theme to light-mode
+  ansible.builtin.lineinfile:
+    path: /etc/grafana/grafana.ini
+    regexp: '^;default_theme'
+    insertafter: '^;default_theme = '
+    line: ;default_theme = light
+  notify:
+    - Restart_grafana

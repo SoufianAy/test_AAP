@@ -1,0 +1,16 @@
+---
+- name: Copy Repo file 
+  ansible.builtin.copy:
+    src: grafana.repo
+    dest: /etc/yum.repos.d/grafana.repo
+
+- name: Install Grafana
+  ansible.builtin.package:
+    name: grafana
+    state: present
+
+- name: Ensure Grafana is enabled and running
+  ansible.builtin.service:
+    name: grafana-server.service
+    enabled: true
+    state: started
